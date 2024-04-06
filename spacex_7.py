@@ -58,7 +58,8 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
               [Input('site-dropdown', 'value')])
 def update_pie_chart(selected_site):
     if selected_site == 'ALL':
-        fig = px.pie(spacex_df, values='class', names='class', title='Total Success Launches for All Sites')
+        rslt = spacex_df['class'].value_counts().reset_index()
+        fig = px.pie(rslt, values='count', names='class', title='Total Success Launches for All Sites')
     else:
         selected_data = spacex_df[spacex_df['Launch Site'] == selected_site]
         fig = px.pie(selected_data, names='class', title=f'Success Launches for {selected_site}')
